@@ -755,8 +755,21 @@ revealEls.forEach(el => observer.observe(el));
 /* ===== RSVP ===== */
 function handleRSVP() {
   const name = document.getElementById('rsvp-name').value.trim();
-  if (!name) { document.getElementById('rsvp-name').focus(); return; }
+  const phone = document.getElementById('rsvp-phone').value.trim();
+  if (!name) {
+    document.getElementById('rsvp-name').focus();
+    document.getElementById('rsvp-name').style.borderColor = 'rgba(201,100,76,0.8)';
+    return;
+  }
+  document.getElementById('rsvp-name').style.borderColor = 'var(--gold)';
   document.getElementById('success-msg').style.display = 'block';
+
+  // Open venue/detail page in new tab after short delay
+  setTimeout(() => {
+    const params = new URLSearchParams({ name, phone });
+    window.open('ashwin_venue.html?' + params.toString(), '_blank');
+  }, 800);
+
   document.getElementById('rsvp-name').value = '';
   document.getElementById('rsvp-phone').value = '';
 }
